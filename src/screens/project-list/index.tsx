@@ -19,16 +19,16 @@ export const ProjectListScreen = () => {
       }
     });
   }, []);
-  const debouncedParams = useDebounce(params, 5000);
+  const debouncedParams = useDebounce(params, 200);
   useEffect(() => {
-    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(params))}`).then(
-      async (response) => {
-        if (response.ok) {
-          let res = await response.json();
-          setList(res);
-        }
+    fetch(
+      `${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParams))}`
+    ).then(async (response) => {
+      if (response.ok) {
+        let res = await response.json();
+        setList(res);
       }
-    );
+    });
   }, [debouncedParams]);
   return (
     <>
