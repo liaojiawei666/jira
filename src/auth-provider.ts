@@ -2,8 +2,10 @@ import { User } from "./screens/project-list/search-panel";
 import { AuthForm } from "./context/auth-context";
 
 const localStorageKey = "__auth_provider_token__";
+export const getToken = () => window.localStorage.getItem(localStorageKey);
 const apiUrl = process.env.REACT_APP_API_URL;
 const handleUserResponse = ({ user }: { user: User }) => {
+  console.log(user);
   window.localStorage.setItem(localStorageKey, user.token || "");
   return user;
 };
