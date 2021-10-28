@@ -1,17 +1,17 @@
-import React, { ReactNode, useState } from "react";
+import React, { createContext, ReactNode, useState } from "react";
 import * as auth from "auth-provider";
 import { User } from "../screens/project-list/search-panel";
 
-interface AuthForm {
+export interface AuthForm {
   username: string;
   password: string;
 }
 
-const AuthContext = React.createContext<
+export const AuthContext = createContext<
   | {
       user: User | null;
-      register: (form: AuthForm) => Promise<void>;
-      login: (form: AuthForm) => Promise<void>;
+      register: (authForm: AuthForm) => Promise<void>;
+      login: (authForm: AuthForm) => Promise<void>;
       logout: () => Promise<void>;
     }
   | undefined
@@ -30,11 +30,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     />
   );
 };
-
 export const useAuth = () => {
   const context = React.useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth 必须在AuthProvider中使用");
+    throw new Error("useAuth必须在AuthProvider中使用");
   }
   return context;
 };
