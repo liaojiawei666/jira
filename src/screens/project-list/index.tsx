@@ -11,11 +11,12 @@ export const ProjectListScreen = () => {
   });
   const [users, setUsers] = useState([]);
   const [list, setList] = useState([]);
+  const client = useHttp();
+  const debouncedParams = useDebounce(params, 200);
   useMount(() => {
     client("users").then(setUsers);
   });
-  const debouncedParams = useDebounce(params, 200);
-  const client = useHttp();
+
   useEffect(() => {
     client("projects", { data: cleanObject(debouncedParams) }).then(setList);
   }, [debouncedParams]);

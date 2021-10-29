@@ -27,3 +27,15 @@ export const useDebounce = <V>(value: V, delay?: number) => {
   }, [value, delay]);
   return debouncedValue;
 };
+
+type Person = {
+  name: string;
+  age: number;
+};
+type PersonKeys = keyof Person; //这里等价于type PersonKeys = "name"|"age";
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+type Name = Pick<Person, "name">;
+// type Age = Exclude<PersonKeys, "name">;
+type Age = Omit<Person, "name">;
