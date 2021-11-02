@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
-export const cleanObject = (object: object) => {
+const isVoid = (value: unknown) =>
+  value === undefined || value === null || value === "";
+export const cleanObject = (object: { [key: string]: unknown }) => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
-    // @ts-ignore
     const value = result[key];
-    if (isFalsy(value)) {
-      // @ts-ignore
+    if (isVoid(value)) {
       delete result[key];
     }
   });
@@ -16,6 +16,7 @@ export const cleanObject = (object: object) => {
 export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 
@@ -27,15 +28,3 @@ export const useDebounce = <V>(value: V, delay?: number) => {
   }, [value, delay]);
   return debouncedValue;
 };
-
-type Person = {
-  name: string;
-  age: number;
-};
-type PersonKeys = keyof Person; //这里等价于type PersonKeys = "name"|"age";
-type Partial<T> = {
-  [P in keyof T]?: T[P];
-};
-type Name = Pick<Person, "name">;
-// type Age = Exclude<PersonKeys, "name">;
-type Age = Omit<Person, "name">;
