@@ -21,7 +21,7 @@ export const login = (userForm: AuthForm) => {
     if (response.ok) {
       return handleUserResponse(await response.json());
     } else {
-      return Promise.reject(userForm);
+      return Promise.reject(await response.json());
     }
   });
 };
@@ -36,7 +36,7 @@ export const register = (userForm: AuthForm) => {
     if (response.ok) {
       return handleUserResponse(await response.json());
     } else {
-      return Promise.reject(userForm);
+      return Promise.reject(await response.json());
     }
   });
 };
