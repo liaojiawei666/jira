@@ -16,8 +16,10 @@ export const ProjectListScreen = () => {
   const debouncedParams = useDebounce(params, 200);
   const { data: users } = useUsers();
   const { isLoading, data: list, error } = useProjects(debouncedParams);
+  const test: any = undefined;
   return (
     <Container>
+      {test.notExist}
       <h2>项目列表</h2>
       <SearchPanel params={params} setParams={setParams} users={users || []} />
       {error ? (
