@@ -45,3 +45,4 @@ export const useDocumentTitle = (
     };
   }, [keepOnUmount, oldTitle]);
 };
+export const resetRoute = () => (window.location.href = window.location.origin);
